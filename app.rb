@@ -45,7 +45,7 @@ def handel_requst(text, sender)
   end
 end
 
-def send_message(message, sender)
+def send_message(message)
   uri = URI('https://graph.facebook.com/v2.6/me/messages')
   https = Net::HTTP.new(uri.host, uri.port)
   https.use_ssl = true
