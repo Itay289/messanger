@@ -29,16 +29,19 @@ post '/callback' do
     sender = msg["sender"]["id"]
     if msg["message"] && msg["message"]["text"]
       handel_requst(msg["message"]["text"], sender)
+    else
+      handel_requst('something', sender)
     end
+
   end
 end
 
 def handel_requst(text, sender)
   case text
   when 'hi' || 'Hi'
-    send_message('hi', sender)
+    payload(sender, text)
   else
-    send_message("i don't understand", sender)
+    payload(sender, "don't understand")
   end
 end
 
@@ -53,13 +56,13 @@ def send_message(message, sender)
   request["HEADER2"] = 'VALUE2'
 
   response = https.request(request)
-  response
+  puts response
 end
 
-# def payload(sender, payload)
-#   data = {
-#     recipient: { id: sender },
-#     message: payload
-#   }
-#   send_message(data)
-# end
+def payload(sender, payload)
+  data = {
+    recipient: { id: sender },
+    message: payload
+  }
+  send_message(data)
+end
