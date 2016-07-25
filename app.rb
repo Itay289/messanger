@@ -15,3 +15,8 @@ get '/callback' do
     403
   end  
 end
+
+
+post '/callback' do
+  params 
+end
