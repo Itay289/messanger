@@ -17,8 +17,8 @@ get '/callback' do
 end
 
 
-post '/callback' do
-  '----------------------'
-  params
-  '----------------------'
-end
+# post '/callback' do
+#   '----------------------'
+#   params
+#   '----------------------'
+# end
