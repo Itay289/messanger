@@ -20,9 +20,9 @@ end
 
 post '/callback' do
   messaging_event = JSON.parse(request.body.read)
-  puts messaging_event
+  messaging_event
   messaging_event["entry"].first["messaging"].each do |msg|
-    puts msg
+    msg
     sender = msg["sender"]["id"]
     if msg["message"] && msg["message"]["text"]
       payload = msg["postback"]["payload"]
