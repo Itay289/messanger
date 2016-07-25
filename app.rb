@@ -8,7 +8,7 @@ end
 
 get '/callback' do
   logger.info "#{params}"
-  if params['hub.mode'] == 'subscriber' && params['hub.verify_token'] == VALIDATION_TOKEN
+  if params['hub.mode'] == 'subscribe' && params['hub.verify_token'] == VALIDATION_TOKEN
      
     params['hub.challenge']
   else
