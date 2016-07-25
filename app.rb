@@ -18,5 +18,7 @@ end
 
 
 post '/callback' do
-  params 
+  '----------------------'
+  params
+  '----------------------'
 end
