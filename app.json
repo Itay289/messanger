@@ -1,0 +1,7 @@
+{
+  "name": "POC Facebook Messanger",
+  "description": "A barebones Sinatra app",
+  "image": "heroku/ruby",
+  "repository": "https://github.com/Itay289/messanger",
+  "keywords": ["ruby", "sinatra" ]
+}
