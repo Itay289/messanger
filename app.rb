@@ -40,10 +40,20 @@ post "/callback" do
 end
 
 get "/send_message" do
-  sender = '1092457560847217'
-  text = params['text'] || 'Default'
-  bot_response(sender, text)
-  status 200
+  USERS.each do |user|
+    sender = user[:id]
+    team = user[:team]
+    text = params['team'] || 'Default'
+    bot_response(sender, team, text)
+  end
+  status 200 
+end
+
+def push_message(sender, team)
+  request_endpoint = "https://graph.facebook.com/v2.6/me/messages?access_token=#{PAGE_ACCESS_TOKEN}"
+  request_body = team_post(sender, team, text)
+
+  HTTParty.post(request_endpoint, :body => request_body, :headers => { 'Content-Type' => 'application/json' } )
 end
 
 def bot_response(sender, text)
@@ -54,16 +64,15 @@ def bot_response(sender, text)
 end
 
 def response_manager(sender, text)
-  case text
-  when 'hello' || 'Hello'
+  case text.lowercase
+  when 'hello'
     text_message_request_body(sender, 'Hello, what team do you want to follow')
   when 'hi'
     text_message_request_body(sender, text)
   when *teams; text
-    text_message_request_body(sender, "You will now get notifications from '#{text}'")
+    team_post(sender, text)
   else
-    logger.info "#{generic_message(sender)}"
-    generic_message(sender)
+    text_message_request_body(sender, "Please type team's name")
   end
 end
 
@@ -80,6 +89,34 @@ def text_message_request_body(sender, text)
       text: text  
     }  
   }.to_json 
+end
+
+def team_post(sender, team, text=nil)
+  title = text ||= "#{team} news"
+  {
+    recipient: {
+      id: sender
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            title: title,
+            subtitle: "#{team}",
+            item_url: "https://www.90min.com/teams/#{team}",               
+            image_url: "http://static.minutemediacdn.com/assets/production/icons/teams/h50/#{team}.png",
+            buttons: [{
+              type: "web_url",
+              url: "https://www.90min.com/teams/#{team}",
+              title: "Open Web URL"
+            }], 
+          }]
+        }
+      }
+    }
+  }.to_json
 end
 
 def generic_message(sender)
@@ -111,4 +148,8 @@ end
 
 def user_exists?(sender) 
   USERS.any? {|user| user[:id].include?(sender)}
+end
+
+def user_ids
+  USERS.map {|user| user[:id]}
 end
