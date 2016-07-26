@@ -55,7 +55,7 @@ def text_message_request_body(sender, text)
       id: sender
     },
     message: {
-      response(text)
+      text: response(text)
     }  
   }.to_json  
 end
@@ -63,9 +63,9 @@ end
 def response(text)
   case text
   when 'hi'
-    text: 'Hi, what team do you want to follow'
+    'Hi, what team do you want to follow'
   when "What's up?"
-    text: 'Very good thank you, what team do you want to follow'
+    'Very good thank you, what team do you want to follow'
   else
     generic_message
   end      
