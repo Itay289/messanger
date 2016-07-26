@@ -56,8 +56,10 @@ def response_manager(sender, text)
   when 'hi'
     text_message_request_body(sender, text)
   when teams.include?(text)
+    logger.info "#{text to team follow}"
     text_message_request_body(sender, "You will now get notifications from '#{text}'")
   else
+    logger.info "#{generic}"
     generic_message(sender)
   end
 end
