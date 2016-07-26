@@ -38,7 +38,7 @@ end
 
 get "/send_message" do
   sender = '1092457560847217'
-  text = pramas['text'] || 'Default'
+  text = params['text'] || 'Default'
   bot_response(sender, text)
   status 200
 end
