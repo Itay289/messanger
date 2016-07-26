@@ -55,11 +55,15 @@ def response_manager(sender, text)
     text_message_request_body(sender, 'Hello, what team do you want to follow')
   when 'hi'
     text_message_request_body(sender, text)
-  when 'i want to follow arsenal'
-    text_message_request_body(sender, 'You will now get notifications from arsenal')
+  when teams.include?(text)
+    text_message_request_body(sender, "You will now get notifications from '#{text}'")
   else
     generic_message(sender)
   end
+end
+
+def teams
+  ['arsenal', 'manchester united', 'real madrid', 'barca', 'barcelona']
 end
 
 def text_message_request_body(sender, text)
