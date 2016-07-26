@@ -44,12 +44,12 @@ get "/send_message" do
     sender = user[:id]
     team = user[:team]
     text = params['team'] || 'Default'
-    bot_response(sender, team, text)
+    push_message(sender, team, text)
   end
   status 200 
 end
 
-def push_message(sender, team)
+def push_message(sender, team, text)
   request_endpoint = "https://graph.facebook.com/v2.6/me/messages?access_token=#{PAGE_ACCESS_TOKEN}"
   request_body = team_post(sender, team, text)
 
