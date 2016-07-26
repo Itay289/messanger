@@ -55,13 +55,7 @@ def text_message_request_body(sender, text)
       id: sender
     },
     message: {
-      text: if text == 'hi'
-              return 'Hi, what team do you want to follow'
-            elsif text == "What's up?"
-              'Very good thank you, what team do you want to follow'
-            else
-              'Please try again'
-            end  
+      text: text  
     }  
   }  
 end
