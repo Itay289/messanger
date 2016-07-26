@@ -3,7 +3,7 @@ require 'json'
 require 'httparty'
 
 VALIDATION_TOKEN = "dc3aab2a-3c08-4d76-a590-7e61a7a7a80a".freeze
-PAGE_ACCESS_TOKEN = 'EAADpxMcwG4wBABKQfiXDApHTaQUI78iFu3cZBPZCjVlqnAR0so6RHNq1R8G0c6YTFgQZBbs8uAl1waKZAbsyGOPm8tbn2uZAZAecUXZAApeif305TcFMoaq5iTdkgqkl2R1GQVf2Jcfe3Vp64unZBOnJZA9VQZAZBZAmPaY4ZADyF2su2XAZDZD'.freeze
+PAGE_ACCESS_TOKEN = 'EAADpxMcwG4wBAK9JVJqF42Gidc66qabh1mxZB4i2UF7q2ydHI4fgbzxZAYWTO2O7JpOrph0lxd2ZAzcw8Rn1bNzcqTgjqxDZBnaeZBiGbfwujJPhgZCctHwnqJZBMkJU7dbvBWUZCqGAovsWBTqxH3dq7XaWYs0OoWSEpBonZCZAbhdwZDZD'.freeze
 
 get '/' do
   "Hello World!"
@@ -40,7 +40,7 @@ def bot_response(sender, text)
   request_endpoint = "https://graph.facebook.com/v2.6/me/messages?access_token=#{PAGE_ACCESS_TOKEN}"
   request_body = text_message_request_body(sender, text)
 
-  HTTParty.post(request_endpoint, request_body, :headers => { 'Content-Type' => 'application/json' } )
+  HTTParty.post(request_endpoint, :body => request_body, :headers => { 'Content-Type' => 'application/json' } )
 end
 
 def text_message_request_body(sender, text)
