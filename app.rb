@@ -40,7 +40,7 @@ def bot_response(sender, text)
   request_endpoint = "https://graph.facebook.com/v2.6/me/messages?access_token=#{PAGE_ACCESS_TOKEN}"
   request_body = text_message_request_body(sender, text)
 
-  HTTParty.post request_endpoint, request_body, content_type: :json, accept: :json
+  HTTParty.post(request_endpoint, request_body, :headers => { 'Content-Type' => 'application/json' } )
 end
 
 def text_message_request_body(sender, text)
