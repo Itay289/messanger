@@ -57,7 +57,7 @@ def text_message_request_body(sender, text)
     message: {
       text: response(text)
     }  
-  }.to_json  
+  }  
 end
 
 def response(text)
