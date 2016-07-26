@@ -58,7 +58,7 @@ def response_manager(sender, text)
   when 'i want to follow arsenal'
     text_message_request_body(sender, 'You will now get notifications from arsenal')
   else
-    generic_message(messanger)
+    generic_message(sender)
   end
 end
 
