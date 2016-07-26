@@ -64,7 +64,7 @@ def bot_response(sender, text)
 end
 
 def response_manager(sender, text)
-  case text.lowercase
+  case text.downcase
   when 'hello'
     text_message_request_body(sender, 'Hello, what team do you want to follow')
   when 'hi'
