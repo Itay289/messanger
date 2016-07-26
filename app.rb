@@ -76,7 +76,7 @@ def text_message_request_body(sender, text)
     message: {
       text: text  
     }  
-  }  
+  }.to_json 
 end
 
 def generic_message(sender)
@@ -121,7 +121,7 @@ def generic_message(sender)
         }
       }
     }
-  }  
+  }.to_json
 end
 
 
