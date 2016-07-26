@@ -55,7 +55,7 @@ def text_message_request_body(sender, text)
       id: sender
     },
     message: {
-      text: 'Hi, what team do you want to follow'
+      text: response(text)
     }  
   }.to_json  
 end
