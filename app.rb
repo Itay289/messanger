@@ -5,6 +5,11 @@ require 'httparty'
 VALIDATION_TOKEN = "dc3aab2a-3c08-4d76-a590-7e61a7a7a80a".freeze
 PAGE_ACCESS_TOKEN = 'EAADpxMcwG4wBAObiLuEOQDdYGWznvM20mb2xWcSHY1YawC8P9ifa4D43VX3ECFlikZAaGJkzQNicdcKPOEroZCeiI0t1ECDj7f32vGmnnElZBRsmB3P0fpl2bOkvWAqq8wpxdUkbZA2EOTP73uaxVwZBVVg9tHxy6NxuO1GWsggZDZD'.freeze
 
+USERS = [{
+          id: '1092457560847217', 
+          teams: ['arsenal']
+        }]
+
 get '/' do
   "Hello World!"
 end
@@ -24,14 +29,13 @@ post "/callback" do
   messaging_events = request_body["entry"][0]["messaging"]
   messaging_events.each do |event|
     sender = event["sender"]["id"]
-    logger.info "#{sender}"
     if !event["message"].nil? && !event["message"]["text"].nil?
       text = event["message"]["text"]
       bot_response(sender, text)
     end
   end
 
-  status 201
+  status 200
   body ''
 end
 
@@ -50,13 +54,12 @@ def bot_response(sender, text)
 end
 
 def response_manager(sender, text)
-  logger.info "#{teams.include?(text)}"
   case text
   when 'hello' || 'Hello'
     text_message_request_body(sender, 'Hello, what team do you want to follow')
   when 'hi'
     text_message_request_body(sender, text)
-  when teams.include?(text)
+  when *teams; text
     text_message_request_body(sender, "You will now get notifications from '#{text}'")
   else
     logger.info "#{generic_message(sender)}"
@@ -106,4 +109,6 @@ def generic_message(sender)
   }.to_json
 end
 
-
+def user_exists?(sender) 
+  USERS.any? {|user| user[:id].include?(sender)}
+end
