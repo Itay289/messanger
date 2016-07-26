@@ -50,16 +50,16 @@ def bot_response(sender, text)
 end
 
 def response_manager(sender, text)
+  logger.info "#{teams.include?(text)}"
   case text
   when 'hello' || 'Hello'
     text_message_request_body(sender, 'Hello, what team do you want to follow')
   when 'hi'
     text_message_request_body(sender, text)
   when teams.include?(text)
-    logger.info "#{text to team follow}"
     text_message_request_body(sender, "You will now get notifications from '#{text}'")
   else
-    logger.info "#{generic}"
+    logger.info "#{generic_message(sender)}"
     generic_message(sender)
   end
 end
