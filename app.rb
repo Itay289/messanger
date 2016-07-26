@@ -1,6 +1,5 @@
 require 'sinatra'
 require 'json'
-require 'rest-client'
 require 'httparty'
 
 VALIDATION_TOKEN = "dc3aab2a-3c08-4d76-a590-7e61a7a7a80a".freeze
