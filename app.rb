@@ -60,13 +60,17 @@ end
 
 def response(text)
   case text
-  when 'hi' || 'Hi'
-    message: 'Hi,' 
-    'Nice to meet you,'
-    'what team do you want to follow'
-  when "What's up?" || "whats up"
-    'Very good thank you,'
-    'what team do you want to follow'
+  when 'hi'
+    message: {
+      text: 'Hi,' 
+        'Nice to meet you,'
+        'what team do you want to follow'
+      }  
+  when "What's up?"
+    message: {
+      text: 'Very good thank you,'
+        'what team do you want to follow'
+      }  
   else
     generic_message
   end      
