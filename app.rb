@@ -21,12 +21,11 @@ end
 
 
 post "/callback" do
-  logger.info "#{params}"
   request_body = JSON.parse(request.body.read)
   messaging_events = request_body["entry"][0]["messaging"]
   messaging_events.each do |event|
     sender = event["sender"]["id"]
-
+    logger.info "#{sender}"
     if !event["message"].nil? && !event["message"]["text"].nil?
       text = event["message"]["text"]
       bot_response(sender, text)
@@ -35,6 +34,10 @@ post "/callback" do
 
   status 201
   body ''
+end
+
+get "/send_message" do
+
 end
 
 def bot_response(sender, text)
