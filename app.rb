@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'json'
 require 'rest-client'
+require 'httparty'
 
 VALIDATION_TOKEN = "dc3aab2a-3c08-4d76-a590-7e61a7a7a80a".freeze
 PAGE_ACCESS_TOKEN = 'EAADpxMcwG4wBABKQfiXDApHTaQUI78iFu3cZBPZCjVlqnAR0so6RHNq1R8G0c6YTFgQZBbs8uAl1waKZAbsyGOPm8tbn2uZAZAecUXZAApeif305TcFMoaq5iTdkgqkl2R1GQVf2Jcfe3Vp64unZBOnJZA9VQZAZBZAmPaY4ZADyF2su2XAZDZD'.freeze
@@ -40,7 +41,7 @@ def bot_response(sender, text)
   request_endpoint = "https://graph.facebook.com/v2.6/me/messages?access_token=#{PAGE_ACCESS_TOKEN}"
   request_body = text_message_request_body(sender, text)
 
-  RestClient.post request_endpoint, request_body, content_type: :json, accept: :json
+  HTTParty.post request_endpoint, request_body, content_type: :json, accept: :json
 end
 
 def text_message_request_body(sender, text)
