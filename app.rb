@@ -66,8 +66,6 @@ def response(text)
     'Hi, what team do you want to follow'
   when "What's up?"
     'Very good thank you, what team do you want to follow'
-  else
-    generic_message
   end      
 end
 
