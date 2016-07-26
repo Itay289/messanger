@@ -21,6 +21,7 @@ end
 
 
 post "/callback" do
+  logger.info "#{params}"
   request_body = JSON.parse(request.body.read)
   messaging_events = request_body["entry"][0]["messaging"]
   messaging_events.each do |event|
@@ -49,7 +50,11 @@ def text_message_request_body(sender, text)
       id: sender
     },
     message: {
-      text: text
+      text: response(text)
     }
   }.to_json
+end
+
+def response(text)
+  text
 end
