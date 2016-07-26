@@ -3,7 +3,7 @@ require 'json'
 require 'httparty'
 
 VALIDATION_TOKEN = "dc3aab2a-3c08-4d76-a590-7e61a7a7a80a".freeze
-PAGE_ACCESS_TOKEN = 'EAADpxMcwG4wBAK9JVJqF42Gidc66qabh1mxZB4i2UF7q2ydHI4fgbzxZAYWTO2O7JpOrph0lxd2ZAzcw8Rn1bNzcqTgjqxDZBnaeZBiGbfwujJPhgZCctHwnqJZBMkJU7dbvBWUZCqGAovsWBTqxH3dq7XaWYs0OoWSEpBonZCZAbhdwZDZD'.freeze
+PAGE_ACCESS_TOKEN = 'EAADpxMcwG4wBAObiLuEOQDdYGWznvM20mb2xWcSHY1YawC8P9ifa4D43VX3ECFlikZAaGJkzQNicdcKPOEroZCeiI0t1ECDj7f32vGmnnElZBRsmB3P0fpl2bOkvWAqq8wpxdUkbZA2EOTP73uaxVwZBVVg9tHxy6NxuO1GWsggZDZD'.freeze
 
 get '/' do
   "Hello World!"
