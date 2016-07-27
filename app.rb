@@ -43,9 +43,10 @@ end
 get "/send_message" do
   USERS.each do |user|
     sender = user[:id]
-    team = user[:team]
     text = params['text'] || nil
-    push_message(sender, team, text)
+    user[:teams].each do |team|
+      push_message(sender, team, text)
+    end  
   end
   status 200 
 end
