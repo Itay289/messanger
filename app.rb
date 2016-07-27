@@ -7,7 +7,7 @@ PAGE_ACCESS_TOKEN = 'EAADpxMcwG4wBAObiLuEOQDdYGWznvM20mb2xWcSHY1YawC8P9ifa4D43VX
 
 USERS = [{
           id: '1092457560847217', 
-          teams: ['arsenal']
+          teams: ['arsenal', 'barca']
         }]
 
 get '/' do
