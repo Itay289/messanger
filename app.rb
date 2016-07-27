@@ -8,10 +8,6 @@ PAGE_ACCESS_TOKEN = 'EAADpxMcwG4wBAObiLuEOQDdYGWznvM20mb2xWcSHY1YawC8P9ifa4D43VX
 USERS = [{
           id: '1092457560847217', 
           teams: ['arsenal']
-        },
-        {
-          id: '1129130823825251',
-          teams: ['barca']
         }]
 
 get '/' do
@@ -48,7 +44,7 @@ get "/send_message" do
   USERS.each do |user|
     sender = user[:id]
     team = user[:team]
-    text = params['team'] || 'Default'
+    text = params['text'] || 'Default'
     push_message(sender, team, text)
   end
   status 200 
@@ -56,14 +52,14 @@ end
 
 def push_message(sender, team, text)
   request_endpoint = "https://graph.facebook.com/v2.6/me/messages?access_token=#{PAGE_ACCESS_TOKEN}"
-  request_body = team_post(sender, team, text)
+  request_body = team_post_message(sender, team, text)
 
   HTTParty.post(request_endpoint, :body => request_body, :headers => { 'Content-Type' => 'application/json' } )
 end
 
 def bot_response(sender, text)
   request_endpoint = "https://graph.facebook.com/v2.6/me/messages?access_token=#{PAGE_ACCESS_TOKEN}"
-  request_body = response_manager(sender, text)
+  request_body = team_post_message(sender, text)
 
   HTTParty.post(request_endpoint, :body => request_body, :headers => { 'Content-Type' => 'application/json' } )
 end
@@ -75,7 +71,7 @@ def response_manager(sender, text)
   when 'hi'
     text_message_request_body(sender, text)
   when *teams; text
-    team_post(sender, text)
+    team_post_message(sender, text)
   else
     text_message_request_body(sender, "Please type team's name")
   end
@@ -96,7 +92,7 @@ def text_message_request_body(sender, text)
   }.to_json 
 end
 
-def team_post(sender, team, text=nil)
+def team_post_message(sender, team, text=nil)
   title = text ||= "#{team} news"
   {
     recipient: {
