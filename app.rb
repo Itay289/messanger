@@ -26,6 +26,7 @@ end
 
 post "/callback" do
   request_body = JSON.parse(request.body.read)
+  logger.info("#{request_body}")
   messaging_events = request_body["entry"][0]["messaging"]
   messaging_events.each do |event|
     sender = event["sender"]["id"]
@@ -150,8 +151,4 @@ end
 
 def user_exists?(sender) 
   USERS.any? {|user| user[:id].include?(sender)}
-end
-
-def user_ids
-  USERS.map {|user| user[:id]}
 end
