@@ -93,8 +93,7 @@ def get_started_message
          "payload":"USER_DEFINED_PAYLOAD"
         }
       ]
-    } 
-  }
+    }
   HTTParty.post(request_endpoint, :body => request_body, :headers => { 'Content-Type' => 'application/json' } )
 end
 
