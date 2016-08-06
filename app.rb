@@ -33,9 +33,8 @@ post "/callback" do
     postback = event["postback"]["payload"] if event["postback"]
     logger.info("#{postback}")
     if postback == "USER_DEFINED_PAYLOAD"
-      return thread_response(sender, "Welcome to 90min bot")
-    end  
-    if !event["message"].nil? && !event["message"]["text"].nil?
+      thread_response(sender, "Welcome to 90min bot")
+    elsif !event["message"].nil? && !event["message"]["text"].nil?
       text = event["message"]["text"]
       bot_response(sender, text, postback)
     end
