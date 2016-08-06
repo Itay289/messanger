@@ -86,14 +86,16 @@ end
 
 def get_started_message
   request_endpoint = "https://graph.facebook.com/v2.6/me/thread_settings?access_token=#{PAGE_ACCESS_TOKEN}"
-  request_body = { "setting_type":"call_to_actions",
+  request_body = 
+  { 
+    "setting_type":"call_to_actions",
     "thread_state":"new_thread",
     "call_to_actions":[
         {
          "payload":"USER_DEFINED_PAYLOAD"
         }
       ]
-    }
+    }.to_json 
   HTTParty.post(request_endpoint, :body => request_body, :headers => { 'Content-Type' => 'application/json' } )
 end
 
