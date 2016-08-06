@@ -33,7 +33,7 @@ post "/callback" do
     postback = event["postback"]["payload"] if event["postback"]
     logger.info("#{postback}")
     if postback == "USER_DEFINED_PAYLOAD"
-      return text_message_request_body(sender, "Welcome to 90min bot")
+      return thread_response(sender, "Welcome to 90min bot")
     end  
     if !event["message"].nil? && !event["message"]["text"].nil?
       text = event["message"]["text"]
@@ -63,9 +63,15 @@ def push_message(sender, team, text)
   HTTParty.post(request_endpoint, :body => request_body, :headers => { 'Content-Type' => 'application/json' } )
 end
 
+def thread_response(sender, text)
+  request_endpoint = "https://graph.facebook.com/v2.6/me/messages?access_token=#{PAGE_ACCESS_TOKEN}"
+  request_body = text_message_request_body(sender, text)
+
+  HTTParty.post(request_endpoint, :body => request_body, :headers => { 'Content-Type' => 'application/json' } )
+end
+
 def bot_response(sender, text)
   request_endpoint = "https://graph.facebook.com/v2.6/me/messages?access_token=#{PAGE_ACCESS_TOKEN}"
-  logger.info("#{postback}")
   request_body = response_manager(sender, text)
 
   HTTParty.post(request_endpoint, :body => request_body, :headers => { 'Content-Type' => 'application/json' } )
