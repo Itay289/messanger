@@ -30,6 +30,7 @@ post "/callback" do
   messaging_events = request_body["entry"][0]["messaging"]
   messaging_events.each do |event|
     sender = event["sender"]["id"]
+    logger.info("#{event["postback"]}")
     postback = event["postback"]["payload"] if event["postback"]
     if !event["message"].nil? && !event["message"]["text"].nil?
       text = event["message"]["text"]
