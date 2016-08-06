@@ -25,6 +25,7 @@ end
 
 
 post "/callback" do
+  get_started_message
   request_body = JSON.parse(request.body.read)
   logger.info("#{request_body}")
   messaging_events = request_body["entry"][0]["messaging"]
@@ -81,6 +82,20 @@ end
 
 def teams
   ['arsenal', 'manchester united', 'real madrid', 'barca', 'barcelona']
+end
+
+def get_started_message
+  request_endpoint = "https://graph.facebook.com/v2.6/me/thread_settings?access_token=#{PAGE_ACCESS_TOKEN}"
+  request_body = { "setting_type":"call_to_actions",
+    "thread_state":"new_thread",
+    "call_to_actions":[
+        {
+         "payload":"USER_DEFINED_PAYLOAD"
+        }
+      ]
+    } 
+  }
+  HTTParty.post(request_endpoint, :body => request_body, :headers => { 'Content-Type' => 'application/json' } )
 end
 
 def text_message_request_body(sender, text)
