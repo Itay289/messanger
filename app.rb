@@ -32,7 +32,7 @@ post "/callback" do
     sender = event["sender"]["id"]
     postback = event["postback"]["payload"] if event["postback"]
     logger.info("#{postback}")
-    if postback == "USER_DEFINED_PAYLOAD"
+    if !postback.nil? && postback == "USER_DEFINED_PAYLOAD"
       thread_response(sender, "Welcome to 90min bot")
     elsif !event["message"].nil? && !event["message"]["text"].nil?
       text = event["message"]["text"]
