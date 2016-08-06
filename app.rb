@@ -36,7 +36,7 @@ post "/callback" do
       thread_response(sender, "Welcome to 90min bot")
     elsif !event["message"].nil? && !event["message"]["text"].nil?
       text = event["message"]["text"]
-      bot_response(sender, text, postback)
+      bot_response(sender, text)
     end
   end
 
