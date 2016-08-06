@@ -25,7 +25,7 @@ end
 
 
 post "/callback" do
-  get_started = get_started_message
+  # get_started = get_started_message
   request_body = JSON.parse(request.body.read)
   logger.info("#{request_body}")
   messaging_events = request_body["entry"][0]["messaging"]
