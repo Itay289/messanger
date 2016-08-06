@@ -27,14 +27,14 @@ end
 post "/callback" do
   get_started = get_started_message
   request_body = JSON.parse(request.body.read)
-  logger.info("#{request_body}")
   messaging_events = request_body["entry"][0]["messaging"]
   messaging_events.each do |event|
     logger.info("#{event}")
     sender = event["sender"]["id"]
+    postback = event["postback"]["payload"] if event["postback"]
     if !event["message"].nil? && !event["message"]["text"].nil?
       text = event["message"]["text"]
-      bot_response(sender, text)
+      bot_response(sender, text, postback)
     end
   end
 
@@ -60,9 +60,13 @@ def push_message(sender, team, text)
   HTTParty.post(request_endpoint, :body => request_body, :headers => { 'Content-Type' => 'application/json' } )
 end
 
-def bot_response(sender, text)
+def bot_response(sender, text, postback=nil)
   request_endpoint = "https://graph.facebook.com/v2.6/me/messages?access_token=#{PAGE_ACCESS_TOKEN}"
-  request_body = team_post_message(sender, text)
+  request_body =  if postback.present?
+                    text_message_request_body(sender, "Welcome to 90min bot")
+                  else      
+                    response_manager(sender, text)
+                  end
 
   HTTParty.post(request_endpoint, :body => request_body, :headers => { 'Content-Type' => 'application/json' } )
 end
