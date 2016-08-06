@@ -62,6 +62,7 @@ end
 
 def bot_response(sender, text, postback=nil)
   request_endpoint = "https://graph.facebook.com/v2.6/me/messages?access_token=#{PAGE_ACCESS_TOKEN}"
+  logger.info("#{postback}")
   request_body =  if postback.present?
                     text_message_request_body(sender, "Welcome to 90min bot")
                   else      
