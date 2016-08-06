@@ -28,6 +28,7 @@ post "/callback" do
   get_started = get_started_message
   request_body = JSON.parse(request.body.read)
   logger.info("#{request_body}")
+  logger.info("#{request_body['postback']['payload']}")
   messaging_events = request_body["entry"][0]["messaging"]
   messaging_events.each do |event|
     sender = event["sender"]["id"]
