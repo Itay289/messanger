@@ -29,7 +29,6 @@ post "/callback" do
   request_body = JSON.parse(request.body.read)
   messaging_events = request_body["entry"][0]["messaging"]
   messaging_events.each do |event|
-    logger.info("#{event}")
     sender = event["sender"]["id"]
     postback = event["postback"]["payload"] if event["postback"]
     if !event["message"].nil? && !event["message"]["text"].nil?
@@ -63,7 +62,7 @@ end
 def bot_response(sender, text, postback=nil)
   request_endpoint = "https://graph.facebook.com/v2.6/me/messages?access_token=#{PAGE_ACCESS_TOKEN}"
   logger.info("#{postback}")
-  request_body =  if postback.present?
+  request_body =  if !postback.nil?
                     text_message_request_body(sender, "Welcome to 90min bot")
                   else      
                     response_manager(sender, text)
