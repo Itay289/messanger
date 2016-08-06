@@ -31,7 +31,8 @@ post "/callback" do
   messaging_events.each do |event|
     sender = event["sender"]["id"]
     postback = event["postback"]["payload"] if event["postback"]
-    if !postback.nil?
+    logger.info("#{postback}")
+    if postback == "USER_DEFINED_PAYLOAD"
       return text_message_request_body(sender, "Welcome to 90min bot")
     end  
     if !event["message"].nil? && !event["message"]["text"].nil?
